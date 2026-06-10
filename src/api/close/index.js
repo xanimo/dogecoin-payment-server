@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
 
     let latestTx = pc.transactions[0]
     for (const tx of pc.transactions) {
-      if (tx.timestamps > latestTx.timestamps) {
+      if (tx.timestamp > latestTx.timestamp) {
         latestTx = tx
       }
     }

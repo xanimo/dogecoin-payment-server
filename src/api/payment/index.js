@@ -6,7 +6,7 @@ const { createPayToHash, pubkeyToAddress } = require('../../utils/address')
 const db = require('../../database')
 const CLTVScript = require('../../paymentchannel/cltv')
 const { verifyPaymentChannelTx } = require('../../paymentchannel/util')
-const { InvalidSignatureError } = require('../error')
+const { InvalidSignatureError, NotFoundError } = require('../error')
 
 const PaymentMessage = require('./message')
 const logger = require('../../logging')
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 
   const pc = await db.getPaymentChannel(address)
   if (!pc) {
-    throw new Error('Payment channel not found.')
+    throw new NotFoundError('Payment channel')
   }
 
   /*
